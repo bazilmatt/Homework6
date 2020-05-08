@@ -1,6 +1,8 @@
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 /**
  * Homework 6 Task 1
@@ -13,26 +15,25 @@ import java.util.Set;
  */
 
 public class Main {
+    static  Set<String> strings = new TreeSet<>();
+    static String s = "";
 
-    Set<String> wordSet = new HashSet<String>();
-    String filename;
+    public static void main(String[] args) throws IOException {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("Example")))){
+            while ((s = reader.readLine()) != null ) {
+                StringTokenizer st = new StringTokenizer(s, " ");
+                    while (st.hasMoreTokens()){
+                        strings.add(st.nextToken());
+                    }
 
-    public static void readFile(String filename) {
-        try (FileInputStream fileInputStream = new FileInputStream(filename)) {
-            System.out.println("Размер файла: " + fileInputStream.available());
-
-            int i = -1;
-            while ((i = fileInputStream.read()) != -1) {
-                System.out.println((char) i);
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
+        //strings.addAll();
+        List<String> listOfStrings = new ArrayList<>();
+        listOfStrings.addAll(strings);
+        listOfStrings.sort(String::compareToIgnoreCase);
+        System.out.println(listOfStrings.toString());
     }
 
-    public Main() throws FileNotFoundException {
-    }
+
 }
